@@ -13,7 +13,7 @@ const About: React.FC = () => {
         
         <div className="text-center mb-24">
           <span className="text-gray-400 font-['Montserrat'] font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Excelência em Remodelações</span>
-          <h1 className="text-6xl font-['Playfair_Display'] font-bold text-gray-900 mb-6">DNL Remodelações</h1>
+          <h1 className="text-6xl font-['Playfair_Display'] font-bold text-gray-900 mb-6">RF Construções</h1>
           <div className="h-0.5 w-24 bg-gray-900 mx-auto mb-8"></div>
           <p className="text-xl font-['Lora'] text-gray-600 max-w-3xl mx-auto italic leading-relaxed">
             Especialistas em transformar visões em realidade através de engenharia rigorosa e arquitetura sofisticada.
@@ -22,14 +22,14 @@ const About: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-32">
           <div className="bg-white p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center">
-             <span className="text-9xl font-['Playfair_Display'] font-bold text-gray-900">DNL</span>
-             <span className="text-sm font-['Montserrat'] font-bold tracking-[0.5em] uppercase mt-4">Remodelações</span>
+             <span className="text-9xl font-['Playfair_Display'] font-bold text-gray-900">RF</span>
+             <span className="text-sm font-['Montserrat'] font-bold tracking-[0.5em] uppercase mt-4">Construções</span>
           </div>
           
           <div className="space-y-8">
             <h2 className="text-4xl font-['Playfair_Display'] font-bold text-gray-900">Nossa Filosofia</h2>
             <p className="text-gray-700 font-['Open_Sans'] leading-relaxed text-lg">
-              A <strong>DNL Remodelações</strong> surgiu da necessidade de oferecer ao mercado português um serviço de construção que privilegia o detalhe e a transparência. Atuamos em projetos residenciais e comerciais com o compromisso de entregar não apenas uma obra, mas um investimento valorizado.
+              A <strong>RF Construções</strong> surgiu da necessidade de oferecer ao mercado português um serviço de construção que privilegia o detalhe e a transparência. Atuamos em projetos residenciais e comerciais com o compromisso de entregar não apenas uma obra, mas um investimento valorizado.
             </p>
             <p className="text-gray-600 font-['Lora'] leading-relaxed text-xl italic border-l-4 border-gray-900 pl-8 bg-gray-50 py-6 pr-6">
               "A nossa marca é o selo de garantia de que cada etapa da sua remodelação foi pensada com precisão absoluta e rigor técnico."
@@ -40,7 +40,7 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
            {[
              { title: "Gestão Integrada", icon: LayoutGrid, text: "Gerimos todas as fases, desde o licenciamento até aos acabamentos finais." },
-             { title: "Rigor no Prazo", icon: Clock, text: "O cumprimento de datas é um pilar inegociável na DNL Remodelações." },
+             { title: "Rigor no Prazo", icon: Clock, text: "O cumprimento de datas é um pilar inegociável na RF Construções." },
              { title: "Qualidade Superior", icon: Gem, text: "Seleção rigorosa de materiais certificados e mão de obra especializada." }
            ].map((item, i) => (
              <div key={i} className="bg-white p-10 border border-gray-100 text-center">

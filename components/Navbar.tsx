@@ -5,26 +5,18 @@ import { Menu, X, Lock } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 const Logo: React.FC = () => (
-  <div className="flex flex-col items-center justify-center relative z-20 p-2">
-    <div className="flex items-end space-x-0.5 mb-1 h-6">
-      <div className="w-1.5 h-3 border-t border-x border-gray-900"></div>
-      <div className="w-1.5 h-5 border-t border-x border-gray-900"></div>
-      <div className="w-1.5 h-4 border-t border-x border-gray-900"></div>
+  <div className="flex flex-col items-center justify-center p-1">
+    <div className="flex items-center space-x-2 mb-1">
+      <div className="w-1 h-4 bg-gray-900"></div>
+      <span className="text-3xl lg:text-4xl font-['Playfair_Display'] font-bold text-gray-900 leading-none tracking-tighter">
+        RF
+      </span>
+      <div className="w-1 h-4 bg-gray-900"></div>
     </div>
-    <div className="w-14 h-px bg-gray-900 mb-1"></div>
-    <span className="text-5xl font-['Playfair_Display'] font-bold text-gray-900 leading-none tracking-tighter">
-      DNL
+    <div className="h-px w-full bg-gray-200 mb-1"></div>
+    <span className="text-[9px] lg:text-[10px] font-['Montserrat'] font-bold text-gray-500 uppercase tracking-[0.3em] whitespace-nowrap">
+      Construções
     </span>
-    <div className="relative mt-1 px-8 py-1.5 border-y border-gray-900/10">
-      <span className="text-xl font-['Playfair_Display'] font-medium text-gray-900 tracking-tight">
-        Remodelações
-      </span>
-    </div>
-    <div className="mt-1 bg-gray-900 px-4 py-0.5">
-      <span className="text-[8px] font-['Montserrat'] font-bold text-white uppercase tracking-[0.3em] whitespace-nowrap">
-        Engenharia e Construção
-      </span>
-    </div>
   </div>
 );
 
@@ -51,69 +43,87 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fechar menu mobile ao mudar de rota
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-gray-200 bg-white/95 backdrop-blur-sm ${
-      scrolled ? 'shadow-md py-0' : 'py-2'
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${
+      scrolled ? 'shadow-md py-1' : 'py-2'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24 lg:h-32 transition-all duration-300"> 
-          <Link to="/" className="flex items-center">
+        <div className="flex items-center justify-between h-20 lg:h-24 transition-all duration-300"> 
+          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
             {settings?.logo_url ? (
-               <img src={settings.logo_url} alt="DNL Logo" className="h-16 lg:h-20 object-contain" />
+               <img src={settings.logo_url} alt="RF Logo" className="h-12 lg:h-16 object-contain" />
             ) : (
                 <Logo />
             )}
           </Link>
 
+          {/* Desktop Menu */}
           <div className="hidden lg:block">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`px-4 py-2 text-[11px] font-['Montserrat'] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group/link ${
-                    isActive(link.path) ? 'text-gray-900' : 'text-gray-400 hover:text-gray-900' 
+                  className={`px-4 py-2 text-[12px] font-['Montserrat'] font-bold uppercase tracking-[0.1em] transition-all duration-200 relative group ${
+                    isActive(link.path) ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900' 
                   }`}
                 >
                   {link.name}
-                  <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gray-900 transition-transform duration-300 ${isActive(link.path) ? 'scale-x-100' : 'scale-x-0 group-hover/link:scale-x-100'}`}></span>
+                  <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gray-900 transition-transform duration-300 ${isActive(link.path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
                 </Link>
               ))}
               <Link 
                 to="/admin" 
-                className="p-3 text-gray-300 hover:text-gray-900 transition-colors ml-4 border border-transparent hover:border-gray-100 rounded-sm"
+                className="p-2 text-gray-300 hover:text-gray-900 transition-colors ml-4"
+                title="Administração"
               >
                 <Lock size={16} />
               </Link>
             </div>
           </div>
 
+          {/* Mobile Toggle */}
           <div className="lg:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-900">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="p-2 text-gray-900 focus:outline-none"
+              aria-label="Menu"
+            >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 h-screen animate-fade-in z-50">
-          <div className="px-8 pt-12 space-y-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`block text-3xl font-['Playfair_Display'] font-bold ${
-                  isActive(link.path) ? 'text-gray-900' : 'text-gray-200'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+      {/* Mobile Menu */}
+      <div className={`lg:hidden fixed inset-0 top-[81px] bg-white z-[99] transition-transform duration-300 ease-in-out transform ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <div className="p-8 space-y-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`block text-2xl font-['Playfair_Display'] font-bold border-b border-gray-50 pb-4 ${
+                isActive(link.path) ? 'text-gray-900' : 'text-gray-400'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Link 
+            to="/admin" 
+            className="flex items-center text-xs font-['Montserrat'] font-bold uppercase tracking-widest text-gray-400 pt-4"
+          >
+            <Lock size={14} className="mr-2" /> Área de Gestão
+          </Link>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

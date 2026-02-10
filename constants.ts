@@ -5,7 +5,7 @@ export const INITIAL_PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Renovação Apartamento Premium',
-    description: 'Reforma completa de apartamento, incluindo demolição de paredes, novo piso e iluminação moderna pela equipa DNL Remodelações.',
+    description: 'Reforma completa de apartamento, incluindo demolição de paredes, novo piso e iluminação moderna pela equipa RF Construções.',
     type: ProjectType.RESIDENTIAL,
     status: ProjectStatus.COMPLETED,
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop',
@@ -16,7 +16,7 @@ export const INITIAL_PROJECTS: Project[] = [
   {
     id: '3',
     title: 'Reabilitação Moradia Cascais',
-    description: 'Projeto de reestruturação total de moradia unifamiliar. Execução de novas redes de águas, eletricidade e acabamentos de luxo.',
+    description: 'Projeto de reestruturação total de moradia unifamiliar. Execução de novas redes de águas, eletricidade e acabamentos de luxo pela RF Construções.',
     type: ProjectType.RESIDENTIAL,
     status: ProjectStatus.IN_PROGRESS,
     imageUrl: 'https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=800&auto=format&fit=crop',
@@ -31,8 +31,8 @@ export const INITIAL_PROJECTS: Project[] = [
   },
   {
     id: '4',
-    title: 'Escritório Moderno DNL',
-    description: 'Adaptação de espaço comercial para escritório open-space com divisórias em pladur e iluminação técnica.',
+    title: 'Escritório Moderno RF',
+    description: 'Adaptação de espaço comercial para escritório open-space com divisórias em pladur e iluminação técnica pela RF Construções.',
     type: ProjectType.COMMERCIAL,
     status: ProjectStatus.IN_PROGRESS,
     imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop',
@@ -48,7 +48,7 @@ export const INITIAL_REVIEWS: Review[] = [
     id: '1',
     clientName: 'Ana Pereira',
     rating: 5,
-    comment: 'Serviço impecável! A DNL Remodelações foi pontual e entregou um acabamento superior.',
+    comment: 'Serviço impecável! A RF Construções foi pontual e entregou um acabamento superior.',
     avatarUrl: 'https://picsum.photos/id/64/100/100',
     date: '2024-01-25',
     approved: true

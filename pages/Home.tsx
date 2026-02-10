@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 text-center">
           <div className="inline-block px-5 py-2 mb-8 border border-white/20 bg-white/5 backdrop-blur-md">
-            <span className="text-white font-['Montserrat'] font-bold tracking-[0.3em] uppercase text-[10px]">DNL Engenharia & Construção</span>
+            <span className="text-white font-['Montserrat'] font-bold tracking-[0.3em] uppercase text-[10px]">RF Engenharia & Construção</span>
           </div>
           <h1 className="text-5xl md:text-8xl font-['Playfair_Display'] font-bold text-white mb-8 leading-tight">
             Remodelações <br/>
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               { icon: Star, title: "Rigor Técnico", desc: "Acabamentos precisos com materiais de primeira linha." },
-              { icon: Clock, title: "Prazos Reais", desc: "Cronograma rigoroso e entrega garantida DNL." },
+              { icon: Clock, title: "Prazos Reais", desc: "Cronograma rigoroso e entrega garantida RF." },
               { icon: ShieldCheck, title: "Confiança", desc: "Transparência total em cada etapa da sua obra." }
             ].map((item, i) => (
               <div key={i} className="p-8 border border-gray-50 hover:border-gray-900 transition-all">

@@ -100,7 +100,7 @@ const Admin: React.FC = () => {
     const projectToAdd: Project = {
       id: Date.now().toString(),
       title: newProject.title as string,
-      description: `Projeto de ${newProject.type} executado pela DNL Remodelações.`,
+      description: `Projeto de ${newProject.type} executado pela RF Construções.`,
       type: newProject.type as ProjectType,
       status: newProject.status as ProjectStatus,
       imageUrl: newProject.imageUrl || 'https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=1000',
@@ -157,7 +157,7 @@ const Admin: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-[#F5F5F5]">
         <div className="flex flex-col items-center">
           <Loader2 className="h-10 w-10 text-gray-900 animate-spin mb-4" />
-          <p className="text-gray-500 font-medium font-['Montserrat']">Carregando DNL Admin...</p>
+          <p className="text-gray-500 font-medium font-['Montserrat']">Carregando RF Admin...</p>
         </div>
       </div>
     );
@@ -168,8 +168,8 @@ const Admin: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-[#F5F5F5] px-4 pt-28">
         <div className="bg-white p-10 rounded-sm shadow-xl w-full max-w-md border border-gray-100">
           <div className="flex flex-col items-center mb-10 text-center">
-              <span className="text-5xl font-['Playfair_Display'] font-bold text-gray-900 mb-2 tracking-tighter">DNL</span>
-              <span className="text-[10px] font-['Montserrat'] font-bold tracking-[0.2em] text-gray-400 uppercase">Gestão Remodelações</span>
+              <span className="text-5xl font-['Playfair_Display'] font-bold text-gray-900 mb-2 tracking-tighter">RF</span>
+              <span className="text-[10px] font-['Montserrat'] font-bold tracking-[0.2em] text-gray-400 uppercase">Gestão Construções</span>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-6">
@@ -194,7 +194,7 @@ const Admin: React.FC = () => {
       <aside className="w-full md:w-72 bg-white text-gray-900 flex flex-col border-r border-gray-100">
         <div className="p-8 border-b border-gray-50 text-center">
              <div className="flex flex-col items-center">
-                <span className="text-4xl font-['Playfair_Display'] font-bold text-gray-900 tracking-tighter">DNL</span>
+                <span className="text-4xl font-['Playfair_Display'] font-bold text-gray-900 tracking-tighter">RF</span>
                 <span className="text-[9px] font-['Montserrat'] font-bold tracking-[0.2em] text-gray-400 uppercase mt-1">Administração</span>
              </div>
         </div>
@@ -257,7 +257,7 @@ const Admin: React.FC = () => {
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
             <div className="bg-white w-full max-w-xl p-8 shadow-2xl rounded-sm">
               <div className="flex justify-between items-center mb-6 pb-4 border-b">
-                <h3 className="text-xl font-['Playfair_Display'] font-bold text-gray-900">Nova Obra DNL</h3>
+                <h3 className="text-xl font-['Playfair_Display'] font-bold text-gray-900">Nova Obra RF</h3>
                 <button onClick={() => setShowAddModal(false)} className="p-1 hover:bg-gray-100 rounded-full"><X size={20} /></button>
               </div>
               

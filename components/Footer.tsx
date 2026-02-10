@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
-            <h3 className="text-2xl font-['Playfair_Display'] font-bold text-white mb-6">DNL Remodelações</h3>
+            <h3 className="text-2xl font-['Playfair_Display'] font-bold text-white mb-6">RF Construções</h3>
             <p className="text-sm font-['Open_Sans'] leading-relaxed mb-6 text-gray-400 max-w-xs">
               Engenharia de precisão e Remodelações de alto padrão. Transformamos espaços com rigor técnico e sofisticação estética.
             </p>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={16} className="text-gray-500 flex-shrink-0" />
-                <span className="text-sm">contacto@dnlremodelacoes.pt</span>
+                <span className="text-sm">contacto@rfconstrucoes.pt</span>
               </li>
               <li className="flex items-center space-x-3">
                 <FileText size={16} className="text-gray-500 flex-shrink-0" />
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-white/5 pt-8 text-center text-[10px] font-['Montserrat'] font-bold uppercase tracking-[0.2em] text-gray-600">
-          <p>&copy; {new Date().getFullYear()} DNL Remodelações. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} RF Construções. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
