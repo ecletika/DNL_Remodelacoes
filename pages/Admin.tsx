@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { Project, ProjectStatus, ProjectType, Review, GalleryItem } from '../types';
 import { generateProjectDescription } from '../services/geminiService';
+import Logo from '../components/Logo';
 import { 
   Trash2, Edit, Plus, Star, LogOut, Info, Settings, 
   Loader2, FolderKanban, FileText, AlertCircle, Sparkles, X, 
@@ -166,23 +167,25 @@ const Admin: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F5F5F5] px-4 pt-28">
-        <div className="bg-white p-10 rounded-sm shadow-xl w-full max-w-md border border-gray-100">
-          <div className="flex flex-col items-center mb-10 text-center">
-              <span className="text-5xl font-['Playfair_Display'] font-bold text-gray-900 mb-2 tracking-tighter">RF</span>
-              <span className="text-[10px] font-['Montserrat'] font-bold tracking-[0.2em] text-gray-400 uppercase">Gestão Construções</span>
+        <div className="bg-white p-12 rounded-sm shadow-xl w-full max-w-md border border-gray-100">
+          <div className="flex flex-col items-center mb-12 text-center">
+              <Logo scale={0.8} />
+              <div className="mt-8">
+                <span className="text-[10px] font-['Montserrat'] font-bold tracking-[0.25em] text-gray-400 uppercase">Gestão de Projetos</span>
+              </div>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-xs font-['Montserrat'] font-bold text-gray-400 uppercase mb-2">E-mail</label>
-              <input type="email" className="w-full px-4 py-3 border border-gray-100 rounded-sm outline-none focus:border-gray-900 transition-colors" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <label className="block text-xs font-['Montserrat'] font-bold text-gray-400 uppercase mb-2">Utilizador</label>
+              <input type="email" className="w-full px-4 py-3 border border-gray-100 rounded-sm outline-none focus:border-gray-900 transition-colors" value={email} placeholder="admin@rf.pt" onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div>
-              <label className="block text-xs font-['Montserrat'] font-bold text-gray-400 uppercase mb-2">Senha</label>
-              <input type="password" className="w-full px-4 py-3 border border-gray-100 rounded-sm outline-none focus:border-gray-900 transition-colors" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <label className="block text-xs font-['Montserrat'] font-bold text-gray-400 uppercase mb-2">Palavra-passe</label>
+              <input type="password" className="w-full px-4 py-3 border border-gray-100 rounded-sm outline-none focus:border-gray-900 transition-colors" value={password} placeholder="••••••••" onChange={(e) => setPassword(e.target.value)} required />
             </div>
-            {errorMessage && <div className="text-red-500 text-xs font-medium flex items-center"><AlertCircle size={14} className="mr-2" /> {errorMessage}</div>}
-            <button type="submit" disabled={isLoggingIn} className="w-full bg-gray-900 text-white py-4 rounded-sm font-['Montserrat'] font-bold uppercase tracking-widest hover:bg-black transition-colors">Entrar no Painel</button>
+            {errorMessage && <div className="text-red-500 text-xs font-medium flex items-center bg-red-50 p-3 border-l-4 border-red-500"><AlertCircle size={14} className="mr-2" /> {errorMessage}</div>}
+            <button type="submit" disabled={isLoggingIn} className="w-full bg-gray-900 text-white py-4 rounded-sm font-['Montserrat'] font-bold uppercase tracking-widest hover:bg-black transition-colors shadow-lg">Aceder ao Painel</button>
           </form>
         </div>
       </div>
@@ -192,10 +195,9 @@ const Admin: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F5] flex flex-col md:flex-row font-['Open_Sans'] pt-28 lg:pt-32">
       <aside className="w-full md:w-72 bg-white text-gray-900 flex flex-col border-r border-gray-100">
-        <div className="p-8 border-b border-gray-50 text-center">
-             <div className="flex flex-col items-center">
-                <span className="text-4xl font-['Playfair_Display'] font-bold text-gray-900 tracking-tighter">RF</span>
-                <span className="text-[9px] font-['Montserrat'] font-bold tracking-[0.2em] text-gray-400 uppercase mt-1">Administração</span>
+        <div className="p-8 border-b border-gray-50 text-center flex justify-center">
+             <div className="transform scale-75">
+                <Logo />
              </div>
         </div>
         <nav className="flex-1 p-6 space-y-2">

@@ -3,41 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Lock } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-
-const Logo: React.FC = () => (
-  <div className="flex flex-col items-center justify-center p-1 group">
-    {/* Ícone do Prédio (Skyline) */}
-    <div className="mb-[-8px]">
-      <svg width="60" height="35" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900">
-        <path d="M42 55V15L50 8L58 15V55" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M58 55V25L75 32V55" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M25 55V35L42 28V55" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M15 55H85" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      </svg>
-    </div>
-
-    {/* RF Principal */}
-    <span className="text-5xl lg:text-6xl font-['Playfair_Display'] font-bold text-gray-900 leading-none tracking-tighter">
-      RF
-    </span>
-
-    {/* Construções com Moldura */}
-    <div className="relative px-6 py-1 mt-1">
-      <div className="absolute left-0 top-0 bottom-0 w-3 border-l-2 border-t-2 border-b-2 border-gray-900"></div>
-      <span className="text-xl lg:text-2xl font-['Playfair_Display'] font-medium text-gray-800 tracking-tight">
-        Construções
-      </span>
-      <div className="absolute right-0 top-0 bottom-0 w-3 border-r-2 border-t-2 border-b-2 border-gray-900"></div>
-    </div>
-
-    {/* Legenda Engenharia */}
-    <div className="bg-gray-900 px-3 py-0.5 mt-0.5">
-      <span className="text-[7px] lg:text-[8px] font-['Montserrat'] font-bold text-white uppercase tracking-[0.25em] whitespace-nowrap">
-        Arquitetura e Engenharia
-      </span>
-    </div>
-  </div>
-);
+import Logo from './Logo';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +42,7 @@ const Navbar: React.FC = () => {
             {settings?.logo_url ? (
                <img src={settings.logo_url} alt="RF Logo" className="h-20 lg:h-28 object-contain" />
             ) : (
-                <Logo />
+                <Logo scale={scrolled ? 0.85 : 1} />
             )}
           </Link>
 
