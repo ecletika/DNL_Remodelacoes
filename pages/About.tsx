@@ -5,6 +5,7 @@ import {
   BarChart3, LayoutGrid, ArrowRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 const About: React.FC = () => {
   return (
@@ -21,9 +22,10 @@ const About: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-32">
-          <div className="bg-white p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center">
-             <span className="text-9xl font-['Playfair_Display'] font-bold text-gray-900">RF</span>
-             <span className="text-sm font-['Montserrat'] font-bold tracking-[0.5em] uppercase mt-4">Construções</span>
+          <div className="bg-white p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center overflow-hidden">
+             <div className="transform scale-150 py-12">
+                <Logo scale={1.2} />
+             </div>
           </div>
           
           <div className="space-y-8">

@@ -64,7 +64,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const deleteProject = async (id: string) => {
-    setProjects(prev => prev.filter(p => p.id !== id));
+    setProjects(prev => {
+      const filtered = prev.filter(p => p.id !== id);
+      return [...filtered];
+    });
   };
 
   const addReview = async (review: Omit<Review, 'id' | 'approved'>): Promise<boolean> => {

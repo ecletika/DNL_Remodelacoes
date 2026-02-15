@@ -7,13 +7,14 @@ import Logo from '../components/Logo';
 import { 
   Trash2, Edit, Plus, Star, LogOut, Info, Settings, 
   Loader2, FolderKanban, FileText, AlertCircle, Sparkles, X, 
-  Youtube, Upload, PlusCircle
+  Youtube, Upload, PlusCircle, CheckCircle, User, Calendar, Phone, Mail
 } from 'lucide-react';
 
 const Admin: React.FC = () => {
   const { 
     isAuthenticated, login, logout, projects, addProject, deleteProject, 
-    reviews, budgetRequests, isLoading 
+    reviews, budgetRequests, deleteReview, toggleReviewApproval, deleteBudgetRequest, 
+    updateBudgetStatus, isLoading 
   } = useApp();
   
   const [email, setEmail] = useState('');
@@ -38,9 +39,21 @@ const Admin: React.FC = () => {
     gallery: []
   });
 
-  const handleDelete = async (id: string, title: string) => {
+  const handleDeleteProject = async (id: string, title: string) => {
     if (window.confirm(`Tem certeza que deseja excluir permanentemente o projeto "${title}"?`)) {
       await deleteProject(id);
+    }
+  };
+
+  const handleDeleteReview = async (id: string, name: string) => {
+    if (window.confirm(`Excluir avaliação de "${name}"?`)) {
+      await deleteReview(id);
+    }
+  };
+
+  const handleDeleteRequest = async (id: string, name: string) => {
+    if (window.confirm(`Remover pedido de orçamento de "${name}"?`)) {
+      await deleteBudgetRequest(id);
     }
   };
 
@@ -59,28 +72,6 @@ const Admin: React.FC = () => {
       const base64 = await fileToBase64(file);
       setNewProject(prev => ({ ...prev, imageUrl: base64 }));
     }
-  };
-
-  const handleGalleryImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      const newItems: GalleryItem[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const base64 = await fileToBase64(files[i]);
-        newItems.push({ url: base64, caption: 'Foto da Obra' });
-      }
-      setNewProject(prev => ({
-        ...prev,
-        gallery: [...(prev.gallery || []), ...newItems]
-      }));
-    }
-  };
-
-  const removeGalleryItem = (index: number) => {
-    setNewProject(prev => ({
-      ...prev,
-      gallery: (prev.gallery || []).filter((_, i) => i !== index)
-    }));
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -213,7 +204,7 @@ const Admin: React.FC = () => {
       <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen">
         <div className="flex justify-between items-center mb-10">
           <h2 className="text-4xl font-['Playfair_Display'] font-bold text-gray-900 capitalize">
-            {activeTab.replace('projects', 'Obras').replace('requests', 'Orçamentos').replace('reviews', 'Avaliações')}
+            {activeTab === 'projects' ? 'Gestão de Obras' : activeTab === 'requests' ? 'Pedidos de Orçamento' : 'Avaliações de Clientes'}
           </h2>
           
           {activeTab === 'projects' && (
@@ -228,9 +219,15 @@ const Admin: React.FC = () => {
           )}
         </div>
 
+        {/* PROJETOS */}
         {activeTab === 'projects' && (
           <div className="grid grid-cols-1 gap-4">
-            {projects.map(project => (
+            {projects.length === 0 ? (
+              <div className="bg-white p-20 text-center border border-dashed border-gray-200">
+                <FolderKanban className="mx-auto text-gray-100 mb-4" size={64} />
+                <p className="text-gray-400 font-['Lora'] italic">Nenhuma obra registada no sistema.</p>
+              </div>
+            ) : projects.map(project => (
               <div key={project.id} className="bg-white p-5 border border-gray-100 shadow-sm flex items-center justify-between group">
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 bg-gray-50 overflow-hidden">
@@ -239,16 +236,110 @@ const Admin: React.FC = () => {
                   <div>
                     <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400 block">{project.type}</span>
                     <h4 className="text-lg font-['Playfair_Display'] font-bold text-gray-900">{project.title}</h4>
+                    <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full ${project.status === ProjectStatus.COMPLETED ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
+                      {project.status}
+                    </span>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <button className="p-2 text-gray-400 hover:text-gray-900 transition-colors"><Edit size={18} /></button>
+                  <button className="p-2 text-gray-300 hover:text-gray-900 transition-colors"><Edit size={18} /></button>
                   <button 
-                    onClick={() => handleDelete(project.id, project.title)} 
-                    className="p-2 text-red-300 hover:text-red-600 transition-colors"
+                    onClick={() => handleDeleteProject(project.id, project.title)} 
+                    className="p-2 text-red-200 hover:text-red-600 transition-colors"
                   >
                     <Trash2 size={18} />
                   </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ORÇAMENTOS (REQUESTS) */}
+        {activeTab === 'requests' && (
+          <div className="grid grid-cols-1 gap-6">
+            {budgetRequests.length === 0 ? (
+              <div className="bg-white p-20 text-center border border-dashed border-gray-200">
+                <FileText className="mx-auto text-gray-100 mb-4" size={64} />
+                <p className="text-gray-400 font-['Lora'] italic">Ainda não recebeu pedidos de orçamento.</p>
+              </div>
+            ) : budgetRequests.map(req => (
+              <div key={req.id} className="bg-white border border-gray-100 p-8 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative">
+                 <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className={`px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-full ${req.status === 'pendente' ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-500'}`}>
+                        {req.status}
+                      </span>
+                      <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest flex items-center">
+                        <Calendar size={10} className="mr-1" /> {new Date(req.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h4 className="text-xl font-['Playfair_Display'] font-bold text-gray-900 mb-2">{req.name}</h4>
+                    <div className="flex flex-wrap gap-4 text-xs text-gray-500 mb-4">
+                       <span className="flex items-center"><Phone size={12} className="mr-2" /> {req.phone}</span>
+                       <span className="flex items-center"><Mail size={12} className="mr-2" /> {req.email}</span>
+                       <span className="font-bold text-gray-900 uppercase tracking-tighter">[ {req.type} ]</span>
+                    </div>
+                    <p className="text-sm text-gray-600 font-['Lora'] italic bg-gray-50 p-4 border-l-2 border-gray-900">{req.description}</p>
+                 </div>
+                 <div className="flex gap-3">
+                    <button 
+                      onClick={() => updateBudgetStatus(req.id, req.status === 'pendente' ? 'contactado' : 'pendente')}
+                      className={`px-4 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${req.status === 'pendente' ? 'bg-gray-900 text-white' : 'bg-white text-gray-400 border-gray-100 hover:text-gray-900'}`}
+                    >
+                      {req.status === 'pendente' ? 'Marcar como Contactado' : 'Reverter para Pendente'}
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteRequest(req.id, req.name)}
+                      className="p-3 text-red-200 hover:text-red-600 transition-colors"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                 </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* AVALIAÇÕES (REVIEWS) */}
+        {activeTab === 'reviews' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {reviews.map(review => (
+              <div key={review.id} className="bg-white p-8 border border-gray-100 shadow-sm flex flex-col justify-between group">
+                <div>
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-300">
+                        <User size={24} />
+                      </div>
+                      <div>
+                        <h4 className="font-['Playfair_Display'] font-bold text-gray-900">{review.clientName}</h4>
+                        <div className="flex text-yellow-400">
+                          {[...Array(5)].map((_, i) => <Star key={i} size={10} fill={i < review.rating ? "currentColor" : "none"} />)}
+                        </div>
+                      </div>
+                    </div>
+                    <span className={`text-[8px] font-bold uppercase px-2 py-1 rounded-sm ${review.approved ? 'bg-green-50 text-green-600' : 'bg-orange-50 text-orange-600'}`}>
+                      {review.approved ? 'Publicado' : 'Aguardando Moderação'}
+                    </span>
+                  </div>
+                  <p className="text-gray-500 font-['Lora'] italic text-sm leading-relaxed mb-8">"{review.comment}"</p>
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-gray-50">
+                   <div className="flex gap-2">
+                      <button 
+                        onClick={() => toggleReviewApproval(review.id, review.approved)}
+                        className={`flex items-center px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition-all ${review.approved ? 'bg-gray-50 text-gray-400' : 'bg-green-600 text-white'}`}
+                      >
+                        {review.approved ? 'Ocultar' : 'Aprovar e Publicar'}
+                      </button>
+                   </div>
+                   <button 
+                     onClick={() => handleDeleteReview(review.id, review.clientName)}
+                     className="p-2 text-red-200 hover:text-red-600 transition-colors"
+                   >
+                     <Trash2 size={18} />
+                   </button>
                 </div>
               </div>
             ))}
